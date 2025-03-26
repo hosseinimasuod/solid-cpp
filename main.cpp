@@ -1,12 +1,13 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <memory> // For std::unique_ptr
+#include <memory> 
 
 // Define PI
-#define PI 3.14159265358979323846  
+constexpr double PI = 3.14159;
 
 // Single Responsibility Principle (SRP)
+// FileLogger handles only logging functionality to a file
 class FileLogger {
 public:
     void log(const std::string& message) {
@@ -21,10 +22,12 @@ public:
 };
 
 // Open/Closed Principle (OCP)
+// Shape is open for extension (new shapes can be added)
+// but closed for modification (existing shapes don't need to change)
 class Shape {
 public:
     virtual double getArea() const = 0;
-    virtual ~Shape() = default; // Important for polymorphism
+    virtual ~Shape() = default; 
 };
 
 class Rectangle : public Shape {
@@ -47,11 +50,13 @@ public:
 };
 
 // Liskov Substitution Principle (LSP)
+// This function works with any Shape subclass without knowing its concrete type
 void printShapeArea(const Shape& shape) {
     std::cout << "Area: " << shape.getArea() << std::endl;
 }
 
 // Interface Segregation Principle (ISP)  - Using abstract classes
+// Separate interfaces for different capabilities
 class Printable {
 public:
     virtual void print() const = 0;
@@ -75,6 +80,8 @@ public:
 };
 
 // Dependency Inversion Principle (DIP)
+// High-level module depends on abstraction (DataRepository)
+// not on concrete implementation (FileDataRepository)
 class DataRepository {
 public:
     virtual void save(const std::string& data) = 0;
